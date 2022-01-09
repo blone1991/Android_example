@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">example</string>
+    <string name="Text_Clear">초기화</string>
+    <string name="TEXT_Publish">발행</string>
+</resources>
