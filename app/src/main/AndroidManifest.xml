@@ -3,6 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lss.example">
 
+    <!-- PERMISSION FOR BLUETOOTH-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,12 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Example"
         tools:ignore="AllowBackup">
-        <activity android:name=".mvvm.LifecycleActivity">
+        <activity
+            android:name=".listview.BtListViewActivity"
+            android:exported="false" />
+        <activity android:name=".mvvm.LifecycleActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.View" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
