@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.lss.example.firebase.FirebaseActivity;
 import com.lss.example.listview.BtListViewActivity;
 import com.lss.example.mvvm.LifecycleActivity;
 
@@ -26,21 +27,26 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_listview)
     Button btn_listview;
 
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.btn_firebase)
+    Button btn_firebase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
     }
 
 
-    @OnClick ({R.id.btn_mvvm, R.id.btn_listview})
+    @OnClick ({R.id.btn_mvvm, R.id.btn_listview, R.id.btn_firebase})
     void OnClick(View view) {
         if (view.getId() == R.id.btn_mvvm) {
             startActivity(new Intent(this, LifecycleActivity.class));
         } else if (view.getId() == R.id.btn_listview) {
             startActivity(new Intent ( this, BtListViewActivity.class));
+        } else if (view.getId() == R.id.btn_firebase) {
+            startActivity(new Intent(this, FirebaseActivity.class));
         }
     }
 

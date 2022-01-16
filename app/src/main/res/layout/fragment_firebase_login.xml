@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".firebase.FirebaseLoginFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:text="이메일"
+            android:layout_weight="3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:ignore="HardcodedText"
+            android:labelFor="@id/et_email"/>
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_weight="8"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:autofillHints=""
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:text="비밀번호"
+            android:layout_weight="3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:ignore="HardcodedText"
+            android:labelFor="@id/et_password"/>
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_weight="8"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberPassword"
+            android:autofillHints="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
+            android:text="로그인"
+            tools:ignore="ButtonStyle,HardcodedText" />
+
+        <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:text="신규등록"
+            tools:ignore="ButtonStyle,HardcodedText" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lss.example">
-
-    <!-- PERMISSION FOR BLUETOOTH-->
+    <!-- PERMISSION FOR BLUETOOTH -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
@@ -11,7 +10,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
 
     <application
         android:allowBackup="true"
@@ -22,15 +20,20 @@
         android:theme="@style/Theme.Example"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".firebase.FirebaseActivity"
+            android:exported="false" />
+        <activity
             android:name=".listview.BtListViewActivity"
             android:exported="false" />
-        <activity android:name=".mvvm.LifecycleActivity"
+        <activity
+            android:name=".mvvm.LifecycleActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.View" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
