@@ -23,7 +23,7 @@
         android:id="@+id/btn_firebase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BtListView"
+        android:text="Firebase"
         tools:ignore="HardcodedText" />
 
 </LinearLayout>

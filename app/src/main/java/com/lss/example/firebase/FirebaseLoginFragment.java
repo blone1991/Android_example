@@ -73,7 +73,7 @@ public class FirebaseLoginFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         getParentFragmentManager().beginTransaction()
-                                .add(new FirebaseChatFragment(), "ChatFragment")
+                                .replace(R.id.fm_container, FirebaseChatFragment.newInstance())
                                 .commit();
 
                         Toast.makeText(getContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
@@ -90,11 +90,11 @@ public class FirebaseLoginFragment extends Fragment {
         FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(et_email.getText().toString(), et_password.getText().toString())
                 .addOnCompleteListener(task -> {
+                    Toast.makeText(getContext(), "등록 성공", Toast.LENGTH_SHORT).show();
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.fm_container, FirebaseChatFragment.newInstance())
+                            .commit();
                     if (task.isSuccessful()) {
-                        getParentFragmentManager().beginTransaction()
-                                .add(new FirebaseChatFragment(), "ChatFragment")
-                                .commit();
-                        Toast.makeText(getContext(), "등록 성공", Toast.LENGTH_SHORT).show();
                     } else {
                         Objects.requireNonNull(task.getException()).printStackTrace();
                         Toast.makeText(getContext(), "등록 에러", Toast.LENGTH_SHORT).show();

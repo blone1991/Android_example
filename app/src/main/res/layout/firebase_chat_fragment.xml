@@ -3,13 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fui_bgGoogle"
+    android:orientation="vertical"
     tools:context=".firebase.FirebaseChatFragment">
 
-    <TextView
+    <ListView
+        android:id="@+id/lv_list"
+        android:background="@drawable/ic_launcher_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello"
-        tools:ignore="HardcodedText" />
+        android:keepScreenOn="true"
+        android:layout_weight="1"/>
+
+    <EditText
+        android:id="@+id/et_msg"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"/>
 
 </LinearLayout>
