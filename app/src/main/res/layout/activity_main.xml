@@ -26,4 +26,11 @@
         android:text="Firebase"
         tools:ignore="HardcodedText" />
 
+    <Button
+        android:id="@+id/btn_restful"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text= "Restful"
+        tools:ignore="HardcodedText" />
+
 </LinearLayout>

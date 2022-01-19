@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.lss.example.firebase.FirebaseActivity;
 import com.lss.example.listview.BtListViewActivity;
 import com.lss.example.mvvm.LifecycleActivity;
+import com.lss.example.restful.RestfulActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_firebase)
     Button btn_firebase;
 
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.btn_restful)
+    Button btn_restful;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @OnClick ({R.id.btn_mvvm, R.id.btn_listview, R.id.btn_firebase})
+    @OnClick ({R.id.btn_mvvm, R.id.btn_listview, R.id.btn_firebase, R.id.btn_restful})
     void OnClick(View view) {
         if (view.getId() == R.id.btn_mvvm) {
             startActivity(new Intent(this, LifecycleActivity.class));
@@ -47,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent ( this, BtListViewActivity.class));
         } else if (view.getId() == R.id.btn_firebase) {
             startActivity(new Intent(this, FirebaseActivity.class));
+        } else if (view.getId() == R.id.btn_restful) {
+            startActivity(new Intent(this, RestfulActivity.class));
         }
     }
-
 }
