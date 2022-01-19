@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -27,11 +28,13 @@ import com.lss.example.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class FirebaseChatFragment extends Fragment implements LifecycleOwner {
+public class FirebaseChatFragment extends Fragment implements LifecycleOwner, View.OnClickListener {
 
     private ListView lv_chat;
     private FirebaseChatViewModel mViewModel;
+    private Button btn_transfer;
     private EditText et_msg;
 
     public static FirebaseChatFragment newInstance() {
@@ -45,15 +48,9 @@ public class FirebaseChatFragment extends Fragment implements LifecycleOwner {
         mViewModel = new ViewModelProvider(this).get(FirebaseChatViewModel.class);
 
         et_msg = v.findViewById(R.id.et_msg);
-        et_msg.setOnKeyListener((view, i, keyEvent) -> {
-            if (i == KeyEvent.KEYCODE_ENTER) {
-                mViewModel.SendMessage(et_msg.getText().toString());
-                et_msg.getText().clear();
-            }
-            return true;
-        });
         lv_chat = v.findViewById(R.id.lv_list);
-
+        btn_transfer = v.findViewById(R.id.btn_transfer);
+        btn_transfer.setOnClickListener(this);
         return v;
     }
 
@@ -62,10 +59,17 @@ public class FirebaseChatFragment extends Fragment implements LifecycleOwner {
         super.onViewCreated(view, savedInstanceState);
 
         mViewModel.getMutableLiveMessage().observe(getViewLifecycleOwner(), messages -> {
-            lv_chat.setAdapter(new ChatAdapter(getContext(), messages, R.layout.firebase_chat_msgview, mViewModel.userId));
+            if ( messages.size() > 0)
+                lv_chat.setAdapter(new ChatAdapter(getContext(), messages, R.layout.firebase_chat_msgview, mViewModel.userId));
         });
 
-        mViewModel.SendMessage("TEST");
+    }
+
+    @Override
+    public void onClick(View view) {
+        mViewModel.SendMessage(et_msg.getText().toString());
+        et_msg.getText().clear();
+
     }
 }
 
@@ -108,7 +112,7 @@ class ChatAdapter extends BaseAdapter {
             chatMessageViewHolder = new ChatMessageViewHolder(v);
         }
 
-        if (dataList.get(i).id == userId) {
+        if (Objects.equals(dataList.get(i).id, userId)) {
             chatMessageViewHolder.my.setVisibility(View.VISIBLE);
             chatMessageViewHolder.others.setVisibility(View.GONE);
             chatMessageViewHolder.mymessage.setText(dataList.get(i).getMessage());

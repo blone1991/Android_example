@@ -10,13 +10,33 @@
         android:id="@+id/lv_list"
         android:background="@drawable/ic_launcher_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:keepScreenOn="true"
         android:layout_weight="1"/>
 
-    <EditText
-        android:id="@+id/et_msg"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"/>
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/et_msg"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
+
+        <Button
+            android:layout_margin="3dp"
+            android:id="@+id/btn_transfer"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="전송"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

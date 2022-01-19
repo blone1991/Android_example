@@ -1,34 +1,32 @@
 package com.lss.example.firebase;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class FirebaseChatViewModel extends ViewModel {
     private static final String TAG = "Chat";
-    String userId = "";
-    private DatabaseReference mDatabase = null;
+    String userId;
+    private DatabaseReference mDatabase;
 
     ArrayList<Message> messageList;
 
@@ -40,40 +38,48 @@ public class FirebaseChatViewModel extends ViewModel {
 
     public FirebaseChatViewModel () {
         super();
-        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         mutableLiveMessage = new MutableLiveData<>();
         messageList = new ArrayList<>();
 
-        mDatabase.addValueEventListener(postListener);
+        mDatabase.child("messageRoom").addChildEventListener(postListener);
     }
 
-    public int SendMessage (String msg) {
+    @SuppressLint("CheckResult")
+    public void SendMessage (String msg) {
         Single<String> single = Single.just(msg);
-        single.observeOn(Schedulers.newThread())
-                .doOnError(throwable -> throwable.printStackTrace())
+        Disposable disposable = single.observeOn(Schedulers.newThread())
+                .doOnError(Throwable::printStackTrace)
                 .subscribe((s, throwable) -> {
+                    Log.d(TAG, "SendMessage: userId = " + userId + " msg = " + msg);
                     mDatabase.child("messageRoom").push().setValue(new Message(userId, msg));
                 });
-        return 0;
     }
 
-    ValueEventListener postListener = new ValueEventListener() {
+    ChildEventListener postListener = new ChildEventListener() {
         @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            Log.d(TAG, "onDataChange: " + snapshot.child("messageRoom").getValue());
-            Log.d(TAG, "onDataChange: " + snapshot.child("messageRoom").toString());
-            Log.d(TAG, "onDataChange: " + snapshot.toString());
-
-
-            Message message = snapshot.child("messageRoome").getValue(Message.class);
+        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            Message message = snapshot.getValue(Message.class);  // chatData를 가져오고
             if (message != null) {
                 messageList.add(message);
                 mutableLiveMessage.setValue(messageList);
-                Log.d(TAG, "onDataChange: " + message.getMessage());
             }
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
         }
 
         @Override
@@ -94,9 +100,6 @@ class Message implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
-
-
-
     public String getId() {
         return id;
     }
